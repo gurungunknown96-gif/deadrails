@@ -1,8 +1,3 @@
-if game.PlaceId ~= 116495829188952 then
-    warn("[RivoHub] Wrong game. PlaceId: " .. tostring(game.PlaceId))
-    return
-end
-
 local VALID_KEY = "yeasdagdbwo127sbj"
 local DISCORD_LINK = "https://discord.gg/ZN4jtyPNHG"
 
@@ -61,7 +56,7 @@ local function showKeyUI(onSuccess)
     end
 
     label("RIVO HUB", 22, Color3.fromRGB(180,0,255), 16, true)
-    label("Dead Rails | Key Required", 12, Color3.fromRGB(140,140,160), 44, false)
+    label("Key Required", 12, Color3.fromRGB(140,140,160), 44, false)
 
     local GetKeyBtn = Instance.new("TextButton")
     GetKeyBtn.Size = UDim2.fromOffset(180,36)
@@ -88,7 +83,7 @@ local function showKeyUI(onSuccess)
 
     GetKeyBtn.MouseButton1Click:Connect(function()
         if copyToClipboard(DISCORD_LINK) then
-            CopiedLabel.Text = "✔ Copied Discord link"
+            CopiedLabel.Text = "Copied Discord link"
         else
             CopiedLabel.Text = DISCORD_LINK
         end
@@ -413,7 +408,7 @@ local function loadHub()
                         bb.Parent=PlayerGui
                         local lbl=Instance.new("TextLabel", bb)
                         lbl.Size=UDim2.new(1,0,1,0); lbl.BackgroundTransparency=1
-                        lbl.Text="📦 "..m.Name; lbl.TextColor3=S.itemESPColor
+                        lbl.Text="[Item] "..m.Name; lbl.TextColor3=S.itemESPColor
                         lbl.TextStrokeTransparency=0; lbl.Font=Enum.Font.GothamBold; lbl.TextSize=11
                         table.insert(S.espObjects, bb)
                     end
@@ -446,20 +441,20 @@ local function loadHub()
                 if not bb.Parent then conn:Disconnect(); return end
                 if isPlayer and not S.playerESP then return end
                 if (not isPlayer) and not S.enemyESP then return end
-                if hum then hpL.Text = "❤ "..math.floor(hum.Health).." / "..math.floor(hum.MaxHealth) end
+                if hum then hpL.Text = "HP "..math.floor(hum.Health).." / "..math.floor(hum.MaxHealth) end
                 local hrp = getHRP()
-                if hrp and head then distL.Text = "📍 "..math.floor((head.Position - hrp.Position).Magnitude).." studs" end
+                if hrp and head then distL.Text = math.floor((head.Position - hrp.Position).Magnitude).." studs" end
             end)
             table.insert(S.espConns, conn)
         end
         if S.enemyESP then
             for _, m in ipairs(Workspace:GetDescendants()) do
-                if isNPC(m) then addEntityBB(m, "👻 ", S.enemyESPColor, false) end
+                if isNPC(m) then addEntityBB(m, "[NPC] ", S.enemyESPColor, false) end
             end
         end
         if S.playerESP then
             for _, p in ipairs(Players:GetPlayers()) do
-                if p ~= LocalPlayer and p.Character then addEntityBB(p.Character, "👤 ", S.playerESPColor, true) end
+                if p ~= LocalPlayer and p.Character then addEntityBB(p.Character, "[P] ", S.playerESPColor, true) end
             end
         end
     end
